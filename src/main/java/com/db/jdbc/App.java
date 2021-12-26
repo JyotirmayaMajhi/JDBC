@@ -26,8 +26,8 @@ public class App {
                
                stmt = connection.createStatement();
               
-               String query = "insert into payroll_service(Name,Salary,Gender,StartDate) values('Satya', 30000, 'M','2021-12-12')";
-//               String query = "delete from payroll_service where ID = '8'";
+//               String query = "insert into payroll_service(Name,Salary,Gender,StartDate) values('Satya', 30000, 'M','2021-12-12')";
+               String query = "delete from payroll_service where ID = '8'";
                int result = stmt.executeUpdate(query);
                if(result > 0 ) {
                        System.out.println("Data got inserted");
