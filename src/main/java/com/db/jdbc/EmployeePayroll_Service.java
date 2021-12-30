@@ -1,6 +1,7 @@
 package com.db.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,20 +32,24 @@ public class EmployeePayroll_Service {
 		}
 
 	public void updateBasePay() throws SQLException {
+		PreparedStatement preparedStatement = null;
 		Scanner sc = new Scanner(System.in);
 		Connection conn = connection.getConnection();
 		System.out.println("Enter the employee Name");
 		String name = sc.next();
 		System.out.println("Enter the new BasePay");
 		double basepay = sc.nextDouble();
-		String query = "update payroll_service set basicpay="+basepay+" where name="+"'"+name+"'";
-		Statement stmt = conn.createStatement();
-		int i = stmt.executeUpdate(query);
+		String query = "update payroll_service set basicpay=? where name=?";
+		preparedStatement = conn.prepareStatement(query);
+		preparedStatement.setDouble(1, basepay);
+		preparedStatement.setString(2, name);
+		int i = preparedStatement.executeUpdate();
 		if(i > 0) {
 			System.out.println("Employee updated successsfully");
 		}
+		
+		preparedStatement.close();
 		sc.close();
-		stmt.close();
 		connection.closeConnection();
 		
 	}
